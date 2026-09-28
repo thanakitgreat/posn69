@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;700&display=swap');
+
+body {
+    font-family: 'Sarabun', sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+h1 { text-align: center; color: #1a73e8; margin-bottom: 30px; }
+
+.section {
+    border: 1px solid #e0e0e0;
+    padding: 20px;
+    margin-bottom: 25px;
+    border-radius: 8px;
+    background: #fafafa;
+}
+
+h3 { margin-top: 0; color: #5f6368; border-bottom: 2px solid #1a73e8; display: inline-block; padding-bottom: 5px; }
+
+label { display: block; margin: 10px 0 5px; font-weight: bold; }
+
+input[type="text"], textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-family: 'Sarabun', sans-serif;
+}
+
+.grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 10px;
+}
+
+.reviewer-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    background: #fff;
+    padding: 15px;
+    border: 1px dashed #ccc;
+    margin-top: 10px;
+}
+
+.btn-primary {
+    background: #1a73e8;
+    color: white;
+    width: 100%;
+    padding: 18px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-primary:hover { background: #1557b0; }
+
+.btn-secondary {
+    background: #34a853;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* เพิ่มเติมจากเดิม */
+.grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-family: 'Sarabun', sans-serif;
+}
+
+.reviewer-pair {
+    display: flex;
+    gap: 20px;
+    border-bottom: 1px dashed #ddd;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+
+.col { flex: 1; }

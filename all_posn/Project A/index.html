@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>ระบบบันทึกข้อความราชการ (Non-Table Version)</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/docxtemplater/3.29.0/docxtemplater.js"></script>
+    <script src="https://unpkg.com/pizzip@3.1.1/dist/pizzip.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pizzip@3.1.1/dist/pizzip-utils.js"></script>
+</head>
+<body>
+<div class="container">
+    <h2>📝 บันทึกข้อความ (ฉบับปรับปรุง)</h2>
+    
+    <div class="section">
+        <label>ส่วนราชการ:</label>
+        <input type="text" id="dept" value="โรงเรียนวิทยาศาสตร์จุฬาภรณราชวิทยาลัย ปทุมธานี"> 
+        <div class="grid-3">
+            <div><label>วันที่:</label><select id="day"></select></div>
+            <div><label>เดือน:</label><select id="month">
+                <option>มกราคม</option><option>กุมภาพันธ์</option><option>มีนาคม</option>
+                <option>เมษายน</option><option>พฤษภาคม</option><option>มิถุนายน</option>
+                <option>กรกฎาคม</option><option>สิงหาคม</option><option>กันยายน</option>
+                <option>ตุลาคม</option><option>พฤศจิกายน</option><option>ธันวาคม</option>
+            </select></div>
+            <div><label>พ.ศ.:</label><select id="year"></select></div>
+        </div> 
+    </div>
+
+    <div class="section">
+        <label>เรื่อง:</label><input type="text" id="subject">
+        <label>เรียน:</label><input type="text" id="to">
+        <label>สิ่งที่ส่งมาด้วย:</label><input type="text" id="attach">
+        <label>เนื้อเรื่อง:</label><textarea id="content" rows="6"></textarea>
+    </div>
+
+    <div class="section">
+        <h3>ข้อมูลผู้ขอ</h3>
+        <input type="text" id="req_name" placeholder="ชื่อนักเรียน">
+        <input type="text" id="req_pos" value="นักเรียนผู้ประสานงาน">
+    </div>
+
+    <div class="section">
+        <h3>ลำดับผู้พิจารณา (คู่ซ้าย-ขวา)</h3>
+        <div id="signer-list"></div>
+        <button type="button" onclick="addSignerPair()">+ เพิ่มคู่ผู้เซ็น</button>
+    </div>
+
+    <div class="section">
+        <h3>ผู้อนุมัติ (พิจารณาคำสั่ง)</h3>
+        <input type="text" id="final_name" value="นายสมร ปาโท">
+        <input type="text" id="final_pos" value="ผู้อำนวยการโรงเรียนวิทยาศาสตร์จุฬาภรณราชวิทยาลัย ปทุมธานี">
+    </div>
+
+    <button class="btn-primary" onclick="generateDoc()">💾 ดาวน์โหลดเอกสาร .docx</button>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบสร้างเอกสารอัตโนมัติ</title>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
+    <style>
+        /* 1. IMPORT THE FONT */
+        @font-face {
+            font-family: 'TH Sarabun New';
+            src: url('THSarabunNew.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        /* 2. APPLY TO EVERYTHING */
+        * {
+            box-sizing: border-box;
+            /* Applying font to every single element */
+            font-family: 'TH Sarabun New';
+        }
+
+        body {
+            background-color: #e9ecef;
+            display: flex;
+            margin: 0;
+            height: 100vh;
+            color: #333;
+            /* 16pt is standard for Thai Gov, but for UI 18-20px looks better */
+            font-size: 18px; 
+        }
+
+        /* Left Side: Input Form */
+        .sidebar {
+            width: 450px;
+            padding: 30px;
+            background: #ffffff;
+            box-shadow: 4px 0 10px rgba(0,0,0,0.1);
+            overflow-y: auto;
+        }
+
+        h2 { font-size: 26px; border-bottom: 2px solid #007bff; padding-bottom: 10px; margin-top: 0; }
+
+        .form-group { margin-bottom: 20px; }
+        
+        label { 
+            display: block; 
+            font-weight: bold; 
+            font-size: 20px; /* Larger for Sarabun readability */
+            margin-bottom: 8px; 
+        }
+
+        input, textarea { 
+            width: 100%; 
+            padding: 10px; 
+            border: 1.5px solid #ddd; 
+            border-radius: 6px; 
+            font-size: 18px; /* Matching the font */
+            background: #fafafa;
+        }
+
+        input:focus { border-color: #007bff; outline: none; background: #fff; }
+
+        /* Right Side: Preview */
+        .preview-area {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            justify-content: center;
+            background: #525659; /* Classic PDF viewer background */
+        }
+
+        /* A4 Document Setup */
+        #paper {
+            background: white;
+            width: 210mm;
+            min-height: 297mm;
+            padding: 25mm 20mm;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            font-size: 16pt; /* Official Standard */
+            line-height: 1.15; /* Prevents Thai tone marks from overlapping */
+        }
+
+        .doc-header { text-align: center; font-weight: bold; font-size: 22pt; margin-bottom: 30px; }
+        
+        .placeholder {
+            color: #0056b3;
+            border-bottom: 1px dashed #0056b3;
+            font-weight: normal;
+        }
+
+        .btn-download {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 20px;
+            width: 100%;
+            margin-top: 20px;
+            transition: 0.3s;
+        }
+
+        .btn-download:hover { background: #218838; transform: translateY(-2px); }
+
+        /* Print formatting */
+        @media print {
+            .placeholder { color: black !important; border: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <h2>แก้ไขข้อมูลเอกสาร</h2>
+        
+        <div class="form-group">
+            <label>ส่วนราชการ / หน่วยงาน</label>
+            <input type="text" id="inDept" oninput="update()" placeholder="เช่น กองงานแผนงาน">
+        </div>
+
+        <div class="form-group">
+            <label>เลขที่หนังสือ</label>
+            <input type="text" id="inNo" oninput="update()" placeholder="ที่ มท ๐๑๐๐/๑๒๓">
+        </div>
+
+        <div class="form-group">
+            <label>ชื่อผู้ลงนาม</label>
+            <input type="text" id="inName" oninput="update()" placeholder="ระบุชื่อ-นามสกุล">
+        </div>
+
+        <div class="form-group">
+            <label>เรื่อง</label>
+            <input type="text" id="inSubject" oninput="update()" placeholder="หัวข้อบันทึกข้อความ">
+        </div>
+
+        <div class="form-group">
+            <label>เนื้อหา (Content)</label>
+            <textarea id="inBody" rows="8" oninput="update()" placeholder="พิมพ์เนื้อหาที่นี่..."></textarea>
+        </div>
+
+        <button class="btn-download" onclick="generatePDF()">บันทึกเป็นไฟล์ PDF</button>
+    </div>
+
+    <div class="preview-area">
+        <div id="paper">
+            <div class="doc-header">บันทึกข้อความ</div>
+            
+            <p><strong>ส่วนราชการ:</strong> <span id="outDept" class="placeholder">................................</span></p>
+            <p><strong>ที่:</strong> <span id="outNo" class="placeholder">..................</span> 
+               <strong>วันที่:</strong> ๒๐ กุมภาพันธ์ ๒๕๖๙</p>
+            <p><strong>เรื่อง:</strong> <span id="outSubject" class="placeholder">....................................................................</span></p>
+            <hr>
+            <p><strong>เรียน</strong> ผู้อำนวยโรงเรียนวิทยาศาสตร์จุฬาภรณราชวิทยาลัย ปทุมธานี</p>
+
+            <div style="text-indent: 50px; text-align: justify;">
+                <span id="outBody" class="placeholder">
+                    (เนื้อหาจะปรากฏที่นี่ตามที่คุณพิมพ์ในช่องข้อความด้านซ้ายมือ)
+                </span>
+            </div>
+
+            <br><br><br>
+            <div style="text-align: center; width: 250px; float: right;">
+                (ลงชื่อ).................................................<br>
+                (<span id="outName">.........................................</span>)<br>
+                ตำแหน่ง หัวหน้าห้อง 3/3
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Real-time synchronization
+        function update() {
+            document.getElementById('outDept').innerText = document.getElementById('inDept').value || "................................";
+            document.getElementById('outNo').innerText = document.getElementById('inNo').value || "..................";
+            document.getElementById('outSubject').innerText = document.getElementById('inSubject').value || "....................................................................";
+            document.getElementById('outBody').innerText = document.getElementById('inBody').value || "(เนื้อหาจะปรากฏที่นี่)";
+            document.getElementById('outName').innerText = document.getElementById('inName').value || ".........................................";
+        }
+
+        // Generate the PDF
+        function generatePDF() {
+            const element = document.getElementById('paper');
+            const placeholders = document.querySelectorAll('.placeholder');
+            
+            // Remove blue styling before PDF export
+            placeholders.forEach(p => p.style.color = 'black');
+            placeholders.forEach(p => p.style.border = 'none');
+
+            const opt = {
+                margin: 0,
+                filename: 'document_thai.pdf',
+                image: { type: 'jpeg', quality: 1 },
+                html2canvas: { scale: 3, useCORS: true, letterRendering: true },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            html2pdf().set(opt).from(element).save().then(() => {
+                // Restore styling after PDF is generated
+                placeholders.forEach(p => p.style.color = '#0056b3');
+                placeholders.forEach(p => p.style.borderBottom = '1px dashed #0056b3');
+            });
+        }
+    </script>
+</body>
+</html>
