@@ -2,19 +2,25 @@
 using namespace std;
 typedef long long L;
 
-int main(){
+int main() {
     ios_base::sync_with_stdio(0);
-    cin.tie(NULL);
-    L num,max1 = -2e18,maxs = 1,streak = 1;
+    cin.tie(nullptr);
+    
+    L num,numin,maxadd = 0,addcount = 1;
     cin >> num;
     L nums[num];
-    for(L i = 0 ; i < num ; i++) cin >> nums[i];
-    for(L i = 0 ; i < num-1 ; i++){
-        if(nums[i] > nums[i+1]) streak++;
+    for(L i = 0 ; i < num ; i++){
+        cin >> numin;
+        if(i == 0) nums[0] = numin;
         else{
-            if(streak > maxs) maxs = streak;
-            streak = 0;
+            nums[i] = numin;
+            if(numin > nums[i-1]) addcount++;
+            else if(numin <= nums[i-1] || i == num-1){
+                maxadd = max(maxadd,addcount);
+                addcount = 1;
+            }
         }
+
     }
-    cout << maxs;
+    cout << maxadd;
 }

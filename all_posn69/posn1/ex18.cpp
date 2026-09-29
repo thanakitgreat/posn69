@@ -17,9 +17,9 @@ int main(){
             }
             n1++;
         }while(n1 < num/2);
-        if(stat) cout << "Prime";
-        else cout << "Not Prime";
+        if(stat) cout << "y";
+        else cout << "n";
     }
-    else if(num == 2) cout << "Prime";
-    else cout << "Not Prime";
+    else if(num == 2) cout << "y";
+    else cout << "n";
 }
