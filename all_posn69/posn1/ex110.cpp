@@ -24,17 +24,12 @@ int main(){
         L med = nums[count/2];
         auto it1 = find(nums.begin(),nums.end(),med);
         auto it2 = find(ans.begin(),ans.end(),med);
-        cout << med << "\n";
         nums.erase(it1);
         L bomb = ans[(it2-ans.begin()+1)%ans.size()];
         auto it = find(nums.begin(),nums.end(),bomb);
         nums.erase(it);
-        if(it2-ans.begin() == ans.size()-1){
-            
-        }else{
-            ans.erase(it2);ans.erase(it2);
-        }
-        
+        if(it2-ans.begin() == ans.size()-1) {ans.erase(it2);ans.erase(ans.begin());}    
+        else {ans.erase(it2);ans.erase(it2);}
         count -= 2;
     }
     cout << ans[0];
