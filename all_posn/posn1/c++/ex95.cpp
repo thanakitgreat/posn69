@@ -5,7 +5,7 @@ int a(int b,int c) {
     if (c == 0) {
         return 1;
     }
-    return b * a(b,c-1);
+    return a(b,c-1);
 }
 
 int main() {

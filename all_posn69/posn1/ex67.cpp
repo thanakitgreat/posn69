@@ -13,9 +13,16 @@ int main(){
     cin >> num;
     vector<L> nums(num);
     for(L i = 0 ; i < num ; i++) cin >> nums[i];
-    for(L i = 0 ; i < num-1 ; i++){
-        if(nums[i] > nums[i+1]) swap(nums[i],nums[i+1]);
-            count++;
+    while(true){
+        L cur = 0;
+        for(L i = 0 ; i < num-1 ; i++){
+            if(nums[i] > nums[i+1]) {
+                swap(nums[i],nums[i+1]);
+                cur++;
+            }
+        }
+        if(cur != 0) count += cur;
+        else break;
     }
     cout << count;
 }

@@ -9,5 +9,10 @@ typedef bool B;
 int main(){
     ios_base::sync_with_stdio(0);
     cin.tie(NULL);
-    
+    L num,nums[5];
+    for(L i = 4 ; i >= 0 ; i--) {cin >> num; nums[i] = num;}
+    for(L i = 0 ; i < 5 ; i++){
+        L* in = &nums[i];
+        cout << *in << " ";
+    }
 }
