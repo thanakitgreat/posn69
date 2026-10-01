@@ -29,15 +29,15 @@ int main(){
 
     L num,minlim,maxlim,difmax,avgmax;
     cin >> num >> minlim >> maxlim >> difmax >> avgmax;
-    vector<L> nums(num),ans;
+    vector<L> nums(num); vector<D> ans;
     for(L i = 0 ; i < num ; i++) cin >> nums[i];
     for(L i = 0 ; i < num ; i++){
         for(L j = i+1 ; j < num ; j++){
-            if(j-i < minlim || j-i > maxlim) continue;
+            if(j-i+1 < minlim || j-i+1 > maxlim) continue;
             else{
                 vector<L> subvec;
                 for(L k = i ; k <= j ; k++) subvec.push_back(nums[k]);
-                if(abs(maxH(subvec))-minH(subvec) > difmax) continue;
+                if(abs(maxH(subvec)-minH(subvec)) > difmax) continue;
                 else{
                     if(avg(subvec) > avgmax) continue;
                     else ans.push_back(avg(subvec));
