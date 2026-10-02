@@ -21,11 +21,13 @@ int main(){
         if(a.first != b.first){
             return a.first > b.first;
         }else{
-            if(a.second.first != b.second.first){
-                return a.second.first < b.second.first;
-                else
-            return a.second.second < b.second.second;
+            if(a.second.first != b.second.first) return a.second.first < b.second.first;
+            else return a.second.second.first < b.second.second.first;
         }
     });
-    cout << ;
+    auto it = find_if(order.begin(),order.end(), [track](const pp& a){
+        return track == a.second.second.second;
+    });
+    for(auto i : order) cout << i.second.second.second << " ";
+    cout << "\n" << it-order.begin()+1;
 }
