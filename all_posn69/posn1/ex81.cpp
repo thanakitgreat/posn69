@@ -13,7 +13,6 @@ bool check(S a,S b){
     else return false;
 }
 
-
 int main(){
     ios_base::sync_with_stdio(0);
     cin.tie(NULL);

@@ -19,11 +19,15 @@ int main(){
     cin >> num >> lim;
     for(L i = 0 ; i < num ; i++){
         cin >> code;
-        auto it = find_if(sale.begin(),sale.end(), [code](const auto& j) { return j.second == code; });
+        auto it = find_if(sale.begin(),sale.end(), [code](const auto& j){
+            return j.second == code; 
+        });
         if(it == sale.end()) sale.push_back({1,code});
         else sale[it-sale.begin()].first++;
     }
-    sort(sale.begin(),sale.end());
+    sort(sale.begin(),sale.end(),[](const pair<L,L>& a,const pair<L,L>& b){
+        return a.second < b.second;
+    });
     for(auto i : sale){
         if(i.first >= lim){
             cout << i.second << ": ";

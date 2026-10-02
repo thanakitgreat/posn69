@@ -10,7 +10,12 @@ int main(){
     ios_base::sync_with_stdio(0);
     cin.tie(NULL);
     
-    S text;L num = 0; getline(cin,text);
-    for(C i : text) if(isupper(i)) num++;
-    cout << num;
+    L num; cin >> num;
+    for(L i= 0 ; i<num ; i++){
+        for(L j=0 ; j<num ; j++){
+            if((i+j)%2 == 0) cout << "W ";
+            else cout << "B ";
+        }
+        cout << "\n";
+    }
 }

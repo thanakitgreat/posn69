@@ -10,7 +10,7 @@ int main(){
     ios_base::sync_with_stdio(0);
     cin.tie(NULL);
     
-    S text;L num = 0; getline(cin,text);
-    for(C i : text) if(isupper(i)) num++;
-    cout << num;
+    L num,in,sum = 0; cin >> num;
+    for(L i=0; i<num ; i++){cin >> in; sum += in;}
+    cout << sum;
 }
