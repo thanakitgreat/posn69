@@ -11,7 +11,7 @@ int main(){
     cin.tie(NULL);
 
     L row,col,fav,maxfav = -1; cin >> row >> col;
-    L nums[row][col],ans[row][col];
+    vector<vector<L>> nums(row,vector<L>(col)), ans(row,vector<L>(col));
     vector<pair<L,L>> cord;
     for(L i = 0 ; i < row ; i++){
         for(L j = 0 ; j < col ; j++) cin >> nums[i][j];
@@ -41,4 +41,4 @@ int main(){
     sort(cord.begin(),cord.end());
     cout << maxfav << "\n" << cord.size() << "\n";
     for(auto i : cord) cout << i.first << " " << i.second << "\n";
-}
+} 

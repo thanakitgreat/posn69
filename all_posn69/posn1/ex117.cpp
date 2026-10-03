@@ -11,13 +11,13 @@ int main(){
     cin.tie(NULL);
 
     S text,ans = ""; cin >> text;
-    if(text.length()/2){
+    if(text.length()%2 == 0){
         for(L i = text.length()/2-1 ; i >= 0 ; i--) ans += text[i];
-        for(L i = text.length() ; i >= text.length()/2 ; i--) ans += text[i];
+        for(L i = text.length()-1 ; i >= text.length()/2 ; i--) ans += text[i];
     }else{
         for(L i = text.length()/2-1 ; i >= 0 ; i--) ans += text[i];
         ans += text[text.length()/2];
-        for(L i = text.length() ; i >= text.length()/2+1 ; i--) ans += text[i];
+        for(L i = text.length()-1 ; i >= text.length()/2+1 ; i--) ans += text[i];
     }
     cout << ans;
 }

@@ -13,8 +13,8 @@ int main(){
             if(cor == '1') sum += 5;
             else sum -= 2;
         }
-        else if(stat = 'D') if(cor == '1') sum += 10;
-        else if(stat = 'B' && sum >= 20 && cor == '1') sum += 15;
+        else if(stat == 'D') if(cor == '1') sum += 10;
+        else if(stat == 'B' && sum >= 20 && cor == '1') sum += 15;
     }
     cout << sum;
 }
