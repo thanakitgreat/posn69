@@ -16,5 +16,5 @@ int main(){
         L* in = &nums[i];
         if(*in == num) ind = i;
     }
-    cout << "Index: " << ind;
+    cout << "Index : " << ind;
 }

@@ -6,14 +6,15 @@ int main() {
     getline(cin, a);
     int d = 0, e = 0;
 
-    for (auto c : a) {
-        if (c == '(') {
-            b += c;
+    for (char i : a) {
+        char *c = &i;
+        if (*c == '(') {
+            b += *c;
             d++;
         }
-        else if (c == ')') {
+        else if (*c == ')') {
             if (d > 0) {
-                b += c;
+                b += *c;
                 d--;
             } else {
                 b += '(';

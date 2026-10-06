@@ -22,6 +22,8 @@ int main(){
     S wp = piece[0],bp=piece[1]; B stat = false;
     L dx = abs(cords[0]-cords[2]),dy = abs(cords[1]-cords[3]);
     if(wp == "PAWN"){
-        if(dx == 1 && dy == 1) 
+        if(dx == 1 && dy == 1){
+            
+        }
     }
 }

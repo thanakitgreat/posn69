@@ -37,20 +37,18 @@ int main(){
             else{
                 vector<L> subvec;
                 for(L k = i ; k <= j ; k++) subvec.push_back(nums[k]);
-                if(abs(maxH(subvec)-minH(subvec)) > difmax) continue;
-                else{
-                    if(avg(subvec) > avgmax) continue;
-                    else ans.push_back(avg(subvec));
+                if(abs(maxH(subvec)-minH(subvec)) <= difmax){
+                    if(avg(subvec) <= avgmax) ans.push_back(avg(subvec));
                 }
             }
         }
     }
-    sort(ans.begin(),ans.end());
+    sort(ans.begin(),ans.end(),greater<>());
     if(ans.empty()){
         cout << 0 << "\n" << fixed << setprecision(2) << 0.00;
     }else{
         cout << ans.size() << "\n" << fixed 
-        << setprecision(2) << ans[ans.size()-1];
+        << setprecision(2) << ans[0];
     }
 
     

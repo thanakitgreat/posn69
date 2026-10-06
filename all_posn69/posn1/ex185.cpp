@@ -16,7 +16,7 @@ int main(){
     for(L i = 0 ; i < num ; i++) {
         cin >> nums[i]; L in = nums[i];
         auto it = find_if(ans.begin(),ans.end(),[in] (const auto& a){
-            return a.first == in;
+            return a.second == in;
         });
         if(it == ans.end()) ans.push_back({1,in});
         else ans[it-ans.begin()].first++;
@@ -28,5 +28,5 @@ int main(){
     cout << "Frequency: " << ans[ans.size()-1].first << "\n";
     auto it = find(nums.begin(),nums.end(),ans[ans.size()-1].second);
     cout << "Start index: " << it-nums.begin() << "\n" << "End index: " 
-    << it-nums.begin()+ans[ans.size()-1].first-1;
+    << it-nums.begin()+((ans[ans.size()-1].first)-1);
 }

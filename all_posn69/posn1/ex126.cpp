@@ -11,31 +11,52 @@ int main(){
     cin.tie(NULL);
     
     L num; cin >> num;
-    L nums[num][num],ans[num][num];
+    vector<vector<L>> nums(num,vector<L>(num)),ans(num,vector<L>(num));
     pair<L,L> cur = {0,0};
     B stat = true;
     for(L i = 0 ; i < num ; i++) for(L j = 0 ; j  < num ; j++){
         cin >> nums[i][j]; ans[i][j] = 0;
     }
-    while(cur.first != num-1 && cur.second != num-1){
-        if(cur.first == num-1){
-            if(nums[cur.first+1]){
-                ans[cur.first][cur.second] = 1;
-                cur.first++;
-            }
-        }else{
-            if(nums[cur.first+1]){
-                ans[cur.first][cur.second] = 1;
-                cur.first++;
-            }else if(nums[cur.second+1]){
+
+    while(cur.first != num-1 || cur.second != num-1){
+        if(cur.second != num-1 && cur.first != num-1){
+            if(nums[cur.first+1][cur.second]){
                 ans[cur.first][cur.second] = 1;
                 cur.second++;
-            }else{stat = false; break;}
+            }else{
+                if(nums[cur.first][cur.second+1]){
+                    ans[cur.first][cur.second] = 1;
+                    cur.second++;
+                }else{
+                    stat = false;
+                    break;
+                }
+            }
+        }else{
+            if(cur.second == num-1){
+                if(nums[cur.first+1][cur.second]){
+                    ans[cur.first][cur.second] = 1;
+                    cur.first++;
+                }else{
+                    stat = false;
+                    break;
+                }
+            }else if(cur.first == num-1){
+                if(nums[cur.first][cur.second+1]){
+                    ans[cur.first][cur.second] = 1;
+                    cur.second++;
+                }else{
+                    stat = false;
+                    break;
+                }
+            }
         }
     }
+
     if(stat){
-        for(L i = 0 ; i < num ; i++){
-            for(L j = 0 ; j < num ; j++) cout << ans[i][j] << " ";
+        ans[num-1][num-1] = 1;
+        for(auto i : ans){
+            for(L j : i) cout << j << " ";
             cout << "\n";
         }
     }
