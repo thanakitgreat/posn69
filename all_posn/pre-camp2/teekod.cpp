@@ -10,26 +10,27 @@ int main() {
     ios_base::sync_with_stdio(0);
     cin.tie(nullptr);
 
-    S text,edit = "",temp = "";
-    B Rcur = true;
+    S text,edit = "";
+    B stat = true; deque<S> ans;
     getline(cin,text);
-    for(L j = 0 ; j < text.length() ; j++){
+    for(L j=0 ; j<text.length() ; j++){\
         C i = text[j];
-        if(i == '['){
-            if(Rcur) edit += temp;
-            else edit = temp + edit;
-            temp = "";
-            Rcur = false;
-        }else if(i == ']'){
-            if(!Rcur) edit = temp + edit;
-            else edit += temp;
-            temp = "";
-            Rcur = true;
-        }else{
-            temp += i;
+        if(i != '[' && i != ']'){
+            if(j != text.length()-1) edit += i;
+            else{
+                edit += i;
+                if(stat) ans.push_back(edit);
+                else ans.push_front(edit);
+            }
+        }
+        else if(i == '['){
+            if(stat) {ans.push_back(edit); edit = ""; stat = false;}
+            else {ans.push_front(edit); edit = "";}
+        }
+        else if(i == ']'){
+            if(stat) {ans.push_back(edit); edit = "";}
+            else {ans.push_front(edit); edit = ""; stat = true;}
         }
     }
-    if(Rcur) edit += temp;
-    else edit = temp + edit;
-    cout << edit;
+    for(S i : ans) cout << i;
 }
