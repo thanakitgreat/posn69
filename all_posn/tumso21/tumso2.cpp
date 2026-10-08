@@ -5,7 +5,7 @@
 
 using namespace std;
 
-typedef long long ll;
+typedef long long L;
 
 void solve_B() {
     int t;
@@ -15,22 +15,22 @@ void solve_B() {
         int n, m;
         cin >> n >> m;
 
-        vector<ll> a(n);
+        vector<L> a(n);
         for (int i = 0; i < n; ++i) cin >> a[i];
 
-        vector<ll> b(m);
+        vector<L> b(m);
         for (int i = 0; i < m; ++i) cin >> b[i];
 
         sort(a.begin(), a.end());
         sort(b.begin(), b.end());
 
-        ll total_profit = 0;
+        L total_profit = 0;
         
-        priority_queue<ll> available_costs; 
+        priority_queue<L> available_costs; 
         
         int item_idx = 0; 
         for (int cust_idx = 0; cust_idx < m; ++cust_idx) {
-            ll current_budget = b[cust_idx];
+            L current_budget = b[cust_idx];
             
             while (item_idx < n && a[item_idx] <= current_budget) {
                 available_costs.push(-a[item_idx]);
@@ -38,7 +38,7 @@ void solve_B() {
             }
 
             if (!available_costs.empty()) {
-                ll cheapest_cost = -available_costs.top();
+                L cheapest_cost = -available_costs.top();
                 available_costs.pop();
                 
                 total_profit += (current_budget - cheapest_cost);
