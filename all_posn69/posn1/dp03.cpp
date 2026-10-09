@@ -6,15 +6,40 @@ using namespace std;
 // ส่งเฉพาะ FUNCTION
 int editDistance(const char a[], int n,
                  const char b[], int m) {
-    // ใส่โค้ดฟังก์ชันหาจำนวนคำสั่งน้อยที่สุดในการเปลี่ยน a ให้เป็น b ตรงนี้
-    //
-    // a = ข้อความต้นฉบับ
-    // n = ความยาวของ a
-    // b = ข้อความเป้าหมาย
-    // m = ความยาวของ b
-    //
-    // อนุญาตให้ใช้คำสั่ง ลบ แทรก และเปลี่ยนตัวอักษร
-    // คืนค่าจำนวนคำสั่งน้อยที่สุด
+    int count = 0,last = 0;
+    if(n == m){
+        for(int i=0 ; i<n ; i++){
+            if(a[i] != b[i]) count++;
+        }
+    }else{
+        char la[n],lb[m];
+        for(int i=0 ; i<n ; i++) la[i] = a[i];
+        for(int i=0 ; i<m ; i++) lb[i] = b[i];
+        if(n < m){
+            for(int i=0 ; i<n ; i++){
+                for(int j=last ; j<m ; j++){
+                    if(la[i] == lb[j]){
+                        count += j-last;
+                        last = j+1;
+                        break;
+                    }
+                }
+            }
+            if(last != m) count += (m-last);
+        }else{
+            for(int i=0 ; i<n ; i++){
+                bool stat = false;
+                for(int j=last ; j<m ; j++){
+                    if(la[j] == lb[i]){
+                        count += i-last;
+                        last = i+1;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    return count;
 }
 
 // อย่าลืมลบ MAIN ก่อนส่ง
